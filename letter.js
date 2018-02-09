@@ -1,9 +1,13 @@
 // constructor function for creating student objects
-var Letters = function(name, favoriteSub, gpa) {
-  this.name = name;
-  this.favoriteSub = favoriteSub;
-  this.gpa = gpa;
-};
+var Letters = function(letter) {
+  this.letter = letter;
+  this.guessed = false;
+  this.letterRender = function() {
+    return !(this.guessed)
+      ? "_"
+      : this.letter;
 
+  };
+};
 // exporting our Student constructor
-module.exports = Student;
+module.exports = Letters;
