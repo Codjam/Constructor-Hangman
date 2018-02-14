@@ -1,22 +1,44 @@
 // // requiring our Student module exported from student.js
-// var Letter = require("./letter.js");
-//
-// // constructor function for creating classroom objects
-// var Word = function(profName, roomNum) {
-//   // this.students will hold all of our student objects
-//   this.letters = [];
-//   this.profName = profName;
-//   this.roomNum = roomNum;
-//   // a method that creates a student using our Student constructor.
-//   // It then pushes the new student object to this.students and updates this.numStudents
-//   this.addStudent = function(name, favoriteSub, gpa) {
-//     this.letter.push(new Letter(name, favoriteSub, gpa));
-//   };
-//   // this method will tell you how many students are in the class
-//   this.letterCount = function() {
-//     return this.letters.length;
-//   };
-// };
-//
-// // exporting our Classroom constructor. We will require it in main.js
-// module.exports = Word;
+var letter = require('./letter.js');
+
+function Word(target) {
+	this.target = target;
+	this.lets = [];
+	this.found = false;
+
+	this.getLet = function() {
+		for (var i=0; i < this.target.length; i++) {
+			this.lets.push( new letter(this.target[i]));
+		}
+	};
+
+	this.findWord = function() {
+		this.found = this.lets.every(function(currLett) {
+			return currLett.appear;
+		});
+		return this.found;
+	};
+
+	this.checkLetter = function(guessLet) {
+		var toReturn = 0;
+
+		for (var i = 0; i < this.lets.length; i++) {
+			if (this.lets[i].charac == guessLet){
+				this.lets[i].appear = true;
+				toReturn++;
+			}
+		}
+		return toReturn;
+	};
+
+	this.wordRender = function() {
+		var string = '';
+		for (var i=0; i < this.lets.length; i++){
+			string += this.lets[i].letterRender();
+		}
+		return string;
+	};
+
+}
+
+module.exports = Word;
